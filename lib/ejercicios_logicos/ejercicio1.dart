@@ -1,4 +1,7 @@
+// ignore_for_file: avoid_print
+
 class MyMatrix {
+  // Esta funcion determina la dimensión de una matriz (cantidad de niveles de anidamiento).
   int dimension(List<dynamic> matrix) {
     int dim = 0;
     dynamic element = matrix;
@@ -10,6 +13,7 @@ class MyMatrix {
     return dim;
   }
 
+  // Esta funcion verifica si una matriz es "rectangular" (todas las filas tienen la misma longitud).
   bool straight(List<dynamic> matrix) {
     bool isStraight = true;
     int firstLength = matrix[0] is List<dynamic> ? matrix[0].length : 1;
@@ -22,6 +26,7 @@ class MyMatrix {
     return isStraight;
   }
 
+  // Esta funcion calcula la suma de todos los elementos de una matriz.
   int compute(List<dynamic> matrix) {
     int sum = 0;
     void sumElements(dynamic item) {
@@ -34,7 +39,7 @@ class MyMatrix {
       }
     }
 
-    sumElements(matrix);
+    sumElements(matrix); // Inicia el proceso de suma desde la matriz principal.
     return sum;
   }
 }
@@ -85,6 +90,7 @@ void main() {
       [4, 8, 3]
     ]
   ];
+
   print(o.dimension(a)); // 1
   print(o.dimension(b)); // 2
   print(o.dimension(c)); // 2
