@@ -11,14 +11,6 @@ class MyApp extends StatelessWidget {
       routes: AppPages.routes,
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
     );
   }
 }
