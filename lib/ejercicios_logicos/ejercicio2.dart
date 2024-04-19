@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 class MyArray {
   // Expresion regular que valida si los parametros de entrada coinciden con la estructura de una expresion aritmetica coherente.
   String regex =
@@ -7,7 +9,7 @@ class MyArray {
     String cleanedInput = input.replaceAll(' ', '');
     RegExp regExp = RegExp(regex);
 
-    // Check for pairs of parentheses in the input string
+    // Evaluar la paridad de parentesis.
     int leftParenCount = 0;
     int rightParenCount = 0;
     for (int i = 0; i < cleanedInput.length; i++) {
@@ -107,15 +109,15 @@ void main() {
   String d = "(2 +10 / 2 - 20";
   String e = "2+(3*4)-(5+6)/7";
   print('-------------------------');
-  print(s.operation(a)); //Debe dar false
+  print(s.operation(a));
   print('-------------------------');
-  print(s.operation(b)); //Debe dar true
+  print(s.operation(b));
   print('-------------------------');
-  print(s.operation(c)); //Debe dar true
+  print(s.operation(c));
   print('-------------------------');
-  print(s.operation(d)); //Debe dar false
+  print(s.operation(d));
   print('-------------------------');
-  print(s.operation(e)); //Debe dar true
+  print(s.operation(e));
   print('///////////////////////////////');
   print(s.compute(a));
   print('-------------------------');
