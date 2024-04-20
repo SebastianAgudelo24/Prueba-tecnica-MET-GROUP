@@ -46,6 +46,9 @@ dependencies:
   flutter_riverpod: ^2.4.9
   riverpod_annotation: ^2.3.3
 
+  #THEME
+  flex_color_scheme: ^7.3.1
+
 
   domain:
     path: packages/domain
