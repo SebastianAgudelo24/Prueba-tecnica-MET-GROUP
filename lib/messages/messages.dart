@@ -1,11 +1,14 @@
 import 'dart:ui';
 
+import 'package:domain/domain.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prueba_programador_sebastian_agudelo/screens/widgets/button/btn_general.dart';
 import 'package:prueba_programador_sebastian_agudelo/screens/widgets/input/tff_general.dart';
 
 import '../core/resource/images.dart';
+import '../screens/home/home_controller.dart';
 import '../screens/widgets/loading/loading_general.dart';
 import '../theme/colors.dart';
 
@@ -13,8 +16,9 @@ part 'dg/loading_dg.dart';
 part 'dg/no_wifi_dg.dart';
 part 'dg/info_dg.dart';
 part 'dg/error_dg.dart';
-part 'dg/product_actions_dg.dart';
+part 'dg/edit_item_dg.dart';
 part 'dg/create_store_dg.dart';
+part 'dg/create_item_dg.dart';
 
 abstract class Messages {
   // Cargando
@@ -25,10 +29,7 @@ abstract class Messages {
       );
 
   // Productos
-  static void showProductActions(BuildContext context,
-          {required VoidCallback onPressed,
-          required bool isEditAction,
-          VoidCallback? navigateToSettings}) =>
+  static void showEditItem(BuildContext context, {required Item item}) =>
       showModalBottomSheet(
           context: context,
           showDragHandle: true,
@@ -36,13 +37,28 @@ abstract class Messages {
           useSafeArea: true,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           enableDrag: true,
-          builder: (context) => _ProductActionsDg(
-                isEditAction: isEditAction,
-                onPressed: onPressed,
+          builder: (context) => _EditItemDg(
+                item: item,
+              ));
+  // Productos
+  static void showCreateItem(
+    BuildContext context, {
+    required Store store,
+  }) =>
+      showModalBottomSheet(
+          context: context,
+          showDragHandle: true,
+          isScrollControlled: true,
+          useSafeArea: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          enableDrag: true,
+          builder: (context) => _CreateItemDg(
+                store: store,
               ));
   // Productos
   static void showCreateStore(BuildContext context,
           {required VoidCallback onPressed,
+          required TextEditingController name,
           VoidCallback? navigateToSettings}) =>
       showModalBottomSheet(
           context: context,
@@ -53,6 +69,7 @@ abstract class Messages {
           enableDrag: true,
           builder: (context) => _CreateStoreDg(
                 onPressed: onPressed,
+                name: name,
               ));
 
   // Mostrar información

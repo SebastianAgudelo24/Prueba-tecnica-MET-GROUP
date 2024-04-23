@@ -1,13 +1,20 @@
 part of '../messages.dart';
 
-class _CreateStoreDg extends StatelessWidget {
+class _CreateStoreDg extends StatefulWidget {
   final VoidCallback onPressed;
+  final TextEditingController name;
 
   const _CreateStoreDg({
     super.key,
     required this.onPressed,
+    required this.name,
   });
 
+  @override
+  State<_CreateStoreDg> createState() => _CreateStoreDgState();
+}
+
+class _CreateStoreDgState extends State<_CreateStoreDg> {
   @override
   Widget build(BuildContext context) {
     final titleStyle = Theme.of(context)
@@ -33,14 +40,14 @@ class _CreateStoreDg extends StatelessWidget {
               child: Form(
                 child: Column(
                   children: [
-                    const TffGeneral(labelText: 'name'),
+                    TffGeneral(labelText: 'Nombre', controller: widget.name),
                     const SizedBox(height: 15),
-                    const TffGeneral(labelText: 'id'),
                     SizedBox(height: MediaQuery.sizeOf(context).height * 0.35),
-                    const BtnGeneral(
-                      text: 'Crear item',
+                    BtnGeneral(
+                      text: 'Crear tienda',
                       fullWidth: true,
                       color: AppColors.primary,
+                      onPressed: widget.onPressed,
                     )
                   ],
                 ),
