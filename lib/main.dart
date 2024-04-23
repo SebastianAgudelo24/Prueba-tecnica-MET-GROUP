@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/di/dependency_injector.dart';
 import 'firebase_options.dart';
-import 'routes/pages.dart';
 import 'routes/routes.dart';
 part 'my_app.dart';
 

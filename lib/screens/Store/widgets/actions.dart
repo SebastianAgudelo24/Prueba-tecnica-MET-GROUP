@@ -1,16 +1,23 @@
-part of '../store_screen.dart';
+part of '../products_screen.dart';
 
-class _Actions extends StatelessWidget {
-  final Function() editAction;
-  final Function() deleteAction;
+class _Actions extends ConsumerStatefulWidget {
+  final Store store;
+  final Item item;
+
   const _Actions({
     super.key,
-    required this.editAction,
-    required this.deleteAction,
+    required this.item,
+    required this.store,
   });
 
   @override
+  ConsumerState<_Actions> createState() => _ActionsState();
+}
+
+class _ActionsState extends ConsumerState<_Actions> {
+  @override
   Widget build(BuildContext context) {
+    final homeController = ref.watch(homeControllerProvider);
     return Column(
       children: [
         Container(
@@ -25,8 +32,8 @@ class _Actions extends StatelessWidget {
           child: Center(
             child: IconButton(
               icon: const Icon(Icons.mode_edit_outline_outlined),
-              onPressed: () => Messages.showProductActions(context,
-                  onPressed: () {}, isEditAction: true),
+              onPressed: () =>
+                  Messages.showEditItem(context, item: widget.item),
             ),
           ),
         ),
@@ -47,7 +54,13 @@ class _Actions extends StatelessWidget {
                 image: AppImages.delete,
                 message: '¿Estas seguro que deseas eliminar este elemento?',
                 needAcceptBtn: true,
-                onPressedAccept: () {},
+                onPressedAccept: () {
+                  homeController.deleteItem(
+                      id: widget.item.id, storeId: widget.store.id);
+                  homeController.getStores();
+
+                  Navigator.pop(context);
+                },
               ),
             ),
           ),

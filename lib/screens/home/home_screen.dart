@@ -1,18 +1,28 @@
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prueba_programador_sebastian_agudelo/core/resource/images.dart';
-import 'package:prueba_programador_sebastian_agudelo/screens/Store/store_screen.dart';
-import 'package:prueba_programador_sebastian_agudelo/screens/widgets/app_bar/listile_app_bar.dart';
+import 'package:prueba_programador_sebastian_agudelo/screens/Store/products_screen.dart';
+import 'package:prueba_programador_sebastian_agudelo/screens/home/home_controller.dart';
 import 'package:prueba_programador_sebastian_agudelo/screens/widgets/card/custom_card.dart';
+
+import '../../messages/messages.dart';
 
 part 'widgets/store_card.dart';
 part 'widgets/banner.dart';
+part 'widgets/listile_app_bar.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
-    const String name = 'Tienda';
+    final homeController = ref.watch(homeControllerProvider);
 
     return Scaffold(
       body: Padding(
@@ -21,7 +31,8 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const ListileAppbar(
+            _ListileAppbar(
+              homeController: homeController,
               sectionTitle: 'Tiendas',
             ),
             const SizedBox(height: 20),
@@ -41,12 +52,36 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: SizedBox(
                 height: MediaQuery.sizeOf(context).height * 0.55,
-                child: ListView.builder(
-                  padding: const EdgeInsets.all(0),
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return const _StoreCard(name: name);
+                child: FutureBuilder(
+                  future: homeController.getStores(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    if (snapshot.hasError || snapshot.data == null) {
+                      return const Center(
+                        child: Text('Sin conexion a internet'),
+                      );
+                    }
+
+                    final stores = snapshot.data!;
+
+                    if (stores.isEmpty) {
+                      return const Center(child: Text('No hay tiendas'));
+                    }
+                    return ListView.builder(
+                      padding: const EdgeInsets.all(0),
+                      shrinkWrap: true,
+                      itemCount: stores.length,
+                      itemBuilder: (context, index) {
+                        final store = stores[index];
+                        return _StoreCard(
+                          homeController: homeController,
+                          store: store,
+                        );
+                      },
+                    );
                   },
                 ),
               ),

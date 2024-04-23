@@ -19,8 +19,9 @@ dependencies:
   firebase_auth: ^4.19.2
   cloud_firestore: ^4.15.5
 
-  #DIO
-  dio: ^5.0.4
+  #Uuid
+  uuid: ^3.0.4
+
 
   domain:
     path: ../domain    
