@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:domain/domain.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prueba_programador_sebastian_agudelo/screens/widgets/button/btn_general.dart';
 import 'package:prueba_programador_sebastian_agudelo/screens/widgets/input/tff_general.dart';
@@ -44,6 +45,9 @@ abstract class Messages {
   static void showCreateItem(
     BuildContext context, {
     required Store store,
+    required VoidCallback onPressed,
+    required TextEditingController name,
+    required TextEditingController price,
   }) =>
       showModalBottomSheet(
           context: context,
@@ -53,6 +57,9 @@ abstract class Messages {
           clipBehavior: Clip.antiAliasWithSaveLayer,
           enableDrag: true,
           builder: (context) => _CreateItemDg(
+                name: name,
+                price: price,
+                onPressed: onPressed,
                 store: store,
               ));
   // Productos

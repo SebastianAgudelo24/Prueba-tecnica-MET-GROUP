@@ -2,8 +2,10 @@ part of '../products_screen.dart';
 
 class _ProductList extends ConsumerStatefulWidget {
   final Store store;
+  final VoidCallback callback;
   const _ProductList({
     super.key,
+    required this.callback,
     required this.store,
   });
 
@@ -29,8 +31,6 @@ class _ProductListState extends ConsumerState<_ProductList> {
               child: Text('Sin conexion a internet'),
             );
           }
-
-          final stores = snapshot.data!;
 
           if (widget.store.items.isEmpty) {
             return const Center(child: Text('No hay productos'));
@@ -96,7 +96,11 @@ class _ProductListState extends ConsumerState<_ProductList> {
                             ),
                           ],
                         ),
-                        _Actions(store: widget.store, item: item)
+                        _Actions(
+                          store: widget.store,
+                          item: item,
+                          callback: widget.callback,
+                        )
                       ]),
                 )),
               );

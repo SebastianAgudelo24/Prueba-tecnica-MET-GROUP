@@ -2,9 +2,14 @@ part of '../messages.dart';
 
 class _CreateItemDg extends ConsumerStatefulWidget {
   final Store store;
-
+  final VoidCallback onPressed;
+  final TextEditingController name;
+  final TextEditingController price;
   const _CreateItemDg({
     super.key,
+    required this.name,
+    required this.price,
+    required this.onPressed,
     required this.store,
   });
 
@@ -13,30 +18,8 @@ class _CreateItemDg extends ConsumerStatefulWidget {
 }
 
 class _CreateItemDgState extends ConsumerState<_CreateItemDg> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  late final TextEditingController name;
-
-  late final TextEditingController price;
-
-  @override
-  void initState() {
-    name = TextEditingController();
-    price = TextEditingController();
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    name.dispose();
-    price.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final homeController = ref.watch(homeControllerProvider);
     final titleStyle = Theme.of(context)
         .textTheme
         .bodyMedium
@@ -63,24 +46,15 @@ class _CreateItemDgState extends ConsumerState<_CreateItemDg> {
               child: Form(
                 child: Column(
                   children: [
-                    TffGeneral(labelText: 'name', controller: name),
+                    TffGeneral(labelText: 'name', controller: widget.name),
                     const SizedBox(height: 15),
-                    TffGeneral(labelText: 'price', controller: price),
+                    TffGeneral(labelText: 'price', controller: widget.price),
                     SizedBox(height: MediaQuery.sizeOf(context).height * 0.35),
                     BtnGeneral(
                       text: 'Crear item',
                       fullWidth: true,
                       color: AppColors.primary,
-                      onPressed: () {
-                        final double parsedPrice =
-                            double.tryParse(price.text) ?? 0.0;
-                        homeController.createItem(
-                            storeId: widget.store.id,
-                            name: name.text,
-                            price: parsedPrice);
-                        homeController.getStores();
-                        Navigator.pop(context);
-                      },
+                      onPressed: widget.onPressed,
                     )
                   ],
                 ),

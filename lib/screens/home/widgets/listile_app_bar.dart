@@ -3,10 +3,12 @@ part of '../home_screen.dart';
 class _ListileAppbar extends StatefulWidget {
   final String sectionTitle;
   final HomeController homeController;
+  final VoidCallback callback;
   const _ListileAppbar({
     super.key,
     required this.sectionTitle,
     required this.homeController,
+    required this.callback,
   });
 
   @override
@@ -41,8 +43,7 @@ class _ListileAppbarState extends State<_ListileAppbar> {
           onPressed: () =>
               Messages.showCreateStore(context, name: name, onPressed: () {
                 widget.homeController.createStore(name: name.text, items: []);
-                widget.homeController.getStores();
-
+                widget.callback();
                 Navigator.pop(context);
               }),
           icon: const Icon(

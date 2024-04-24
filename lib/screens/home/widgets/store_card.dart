@@ -1,9 +1,8 @@
 part of '../home_screen.dart';
 
-class _StoreCard extends StatelessWidget {
-  final HomeController homeController;
+class _StoreCard extends StatefulWidget {
   final Store store;
-
+  final HomeController homeController;
   const _StoreCard({
     super.key,
     required this.store,
@@ -11,6 +10,10 @@ class _StoreCard extends StatelessWidget {
   });
 
   @override
+  State<_StoreCard> createState() => _StoreCardState();
+}
+
+class _StoreCardState extends State<_StoreCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
@@ -18,8 +21,11 @@ class _StoreCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ProductsScreen(
-              store: store,
-              homeController: homeController,
+              callback: () => setState(() {
+                print('//////////////SET STATE///////////');
+              }),
+              homeController: widget.homeController,
+              store: widget.store,
             ),
           ),
         );
@@ -31,13 +37,13 @@ class _StoreCard extends StatelessWidget {
             minVerticalPadding: 30,
             trailing: Image.asset(AppImages.register),
             title: Text(
-              store.name,
+              widget.store.name,
               style: Theme.of(context)
                   .textTheme
                   .titleMedium
                   ?.copyWith(fontSize: 20),
             ),
-            subtitle: Text('Id: ${store.id.substring(0, 3)}'),
+            subtitle: Text('Id: ${widget.store.id.substring(0, 3)}'),
           ),
         ),
       ),

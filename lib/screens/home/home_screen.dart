@@ -32,6 +32,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             _ListileAppbar(
+              callback: () => setState(() {}),
               homeController: homeController,
               sectionTitle: 'Tiendas',
             ),

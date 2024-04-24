@@ -3,9 +3,11 @@ part of '../products_screen.dart';
 class _Actions extends ConsumerStatefulWidget {
   final Store store;
   final Item item;
+  final VoidCallback callback;
 
   const _Actions({
     super.key,
+    required this.callback,
     required this.item,
     required this.store,
   });
@@ -57,7 +59,7 @@ class _ActionsState extends ConsumerState<_Actions> {
                 onPressedAccept: () {
                   homeController.deleteItem(
                       id: widget.item.id, storeId: widget.store.id);
-                  homeController.getStores();
+                  widget.callback();
 
                   Navigator.pop(context);
                 },

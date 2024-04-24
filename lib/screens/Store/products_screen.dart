@@ -11,16 +11,22 @@ part 'widgets/actions.dart';
 part 'widgets/product_list.dart';
 part 'widgets/products_app_bar.dart';
 
-class ProductsScreen extends StatelessWidget {
-  final HomeController homeController;
-
+class ProductsScreen extends ConsumerStatefulWidget {
   final Store store;
+  final HomeController homeController;
+  final VoidCallback callback;
   const ProductsScreen({
     super.key,
+    required this.callback,
     required this.homeController,
     required this.store,
   });
 
+  @override
+  ConsumerState<ProductsScreen> createState() => _ProductsScreenState();
+}
+
+class _ProductsScreenState extends ConsumerState<ProductsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +36,9 @@ class ProductsScreen extends StatelessWidget {
         child: Column(
           children: [
             _ProductsAppBar(
-              store: store,
+              homeController: widget.homeController,
+              callback: widget.callback,
+              store: widget.store,
             ),
             const SizedBox(height: 15),
             Align(
@@ -42,7 +50,10 @@ class ProductsScreen extends StatelessWidget {
                       .bodyMedium
                       ?.copyWith(fontSize: 25, fontWeight: FontWeight.w700),
                 )),
-            _ProductList(store: store)
+            _ProductList(
+              store: widget.store,
+              callback: widget.callback,
+            )
           ],
         ),
       ),
