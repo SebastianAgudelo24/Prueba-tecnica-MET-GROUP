@@ -24,10 +24,11 @@ Ejercicios logicos:
 2. Creación de un objeto MyArray que analiza y evalúa operaciones aritméticas representadas como strings. El objeto tiene dos métodos: operation, que verifica si el string es una operación aritmética válida, y compute, que calcula el resultado de la operación si es válida.
 
 Consumo de API REST e implementaciones:
-1. Pantalla de registro de usuario.
-2. Pantalla de inicio de sesión.
-3. Pantalla principal que permite crear, obtener, eliminar elementos en esta caso "Tiendas" usando peticiones API Rest.
-4. Pantalla de detalle de cada tienda la cual permite crear, obtener, eliminar y editar elemtnos, en este caso "Items" usando peticiones API Rest.
+1. Pantalla de inicio de sesión. ## Credenciales:
+     usuario: Met
+     Contraseña: 1234
+3. Pantalla principal que permite crear, obtener elementos en esta caso "Tiendas" usando peticiones API Rest.
+4. Pantalla de detalle de cada tienda la cual permite crear, obtener, eliminar y editar elementos, en este caso "Items" usando peticiones API Rest.
 
 ## Notas Adicionales
 
